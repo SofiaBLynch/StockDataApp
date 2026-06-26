@@ -33,7 +33,7 @@ function App() {
         : 
                 
         <div key={stockData.symbol}>
-            <div class="row-container">
+            <div className="row-container">
                 <h3>{stockData.symbol}</h3>
                 {showTable ?
                     <button className="icon-button" onClick={collapseTable }> 
@@ -169,13 +169,13 @@ function App() {
                 if (response.status >= 500) {
                     document.getElementById("serverErrorMessage").style.display = "block";
                     return;
-                } else if(response.status >= 400) {
+                } else if (response.status >= 400) {
                     document.getElementById("errorMessage").style.display = "block";
                 } else {
                 }
                 throw new Error(response);
             }
-            
+
             const data = await response.json();
 
             setStockData(data);
@@ -184,8 +184,7 @@ function App() {
 
             console.error(err);
         }
-    }
-    
+    }  
 
 }
 

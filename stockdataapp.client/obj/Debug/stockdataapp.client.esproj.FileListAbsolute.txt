@@ -1,0 +1,1 @@
+C:\Users\Sofia Lynch\source\repos\StockDataApp\stockdataapp.client\obj\Debug\stockdataapp.client.esproj.CoreCompileInputs.cache

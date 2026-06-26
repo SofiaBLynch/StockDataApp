@@ -15,6 +15,10 @@ function App() {
     const open   = stockData?.data.map(d => d.open) ?? [];
     const close  = stockData?.data.map(d => d.close) ?? [];
     const volume = stockData?.data.map(d => d.volume) ?? [];
+    const volumeFormatter = new Intl.NumberFormat("en-US", {
+        notation: "compact",
+        maximumFractionDigits: 1,
+    });
 
     useEffect(() => {
         populateStockData();
@@ -24,10 +28,45 @@ function App() {
         setShowTable(prev => !prev);
     }
 
-    const volumeFormatter = new Intl.NumberFormat("en-US", {
-        notation: "compact",
-        maximumFractionDigits: 1,
-    });
+    function checkError() {
+        document.getElementById("serverErrorMessage").style.display = "none";
+        document.getElementById("errorMessage").style.display = "none";
+        if (symbol.length < 1 || symbol.length > 5) {
+            document.getElementById("errorMessage").style.display = "block";
+            return true;
+        }
+        return false;
+    }
+
+    async function populateStockData() {
+        let response;
+        try {
+            let error = checkError();
+            if (error) { return; }
+
+            response = await fetch(
+                `stockdata?symbol=${encodeURIComponent(symbol)}`
+            );
+
+            if (!response.ok) {
+                throw new Error(response);
+            }
+
+            const data = await response.json();
+
+            setStockData(data);
+        }
+        catch (err) {
+            if (response.status >= 500) {
+                document.getElementById("serverErrorMessage").style.display = "block";
+                return;
+            } else if (response.status >= 400) {
+                document.getElementById("errorMessage").style.display = "block";
+            } else {
+            }
+            console.error(err);
+        }
+    }  
     const dataContents = stockData === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started.</em></p>
         : 
@@ -157,35 +196,6 @@ function App() {
         </div>
     );
     
-    async function populateStockData() {
-        try {
-            document.getElementById("serverErrorMessage").style.display = "none";
-            document.getElementById("errorMessage").style.display = "none";
-            const response = await fetch(
-                `stockdata?symbol=${encodeURIComponent(symbol)}`
-            );
-            if (!response.ok) {
-
-                if (response.status >= 500) {
-                    document.getElementById("serverErrorMessage").style.display = "block";
-                    return;
-                } else if (response.status >= 400) {
-                    document.getElementById("errorMessage").style.display = "block";
-                } else {
-                }
-                throw new Error(response);
-            }
-
-            const data = await response.json();
-
-            setStockData(data);
-        }
-        catch (err) {
-
-            console.error(err);
-        }
-    }  
-
 }
 
 export default App;

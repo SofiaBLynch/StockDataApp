@@ -37,4 +37,3 @@ C:\Users\Sofia Lynch\source\repos\StockDataApp\StockDataApp.Server\obj\Debug\net
 C:\Users\Sofia Lynch\source\repos\StockDataApp\StockDataApp.Server\obj\Debug\net8.0\StockDataApp.Server.genruntimeconfig.cache
 C:\Users\Sofia Lynch\source\repos\StockDataApp\StockDataApp.Server\obj\Debug\net8.0\ref\StockDataApp.Server.dll
 C:\Users\Sofia Lynch\source\repos\StockDataApp\StockDataApp.Server\obj\Debug\net8.0\StockDataApp.Server.sourcelink.json
-C:\Users\Sofia Lynch\source\repos\StockDataApp\StockDataApp.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

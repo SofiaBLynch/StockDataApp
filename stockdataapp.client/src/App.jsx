@@ -31,7 +31,7 @@ function App() {
     function checkError() {
         document.getElementById("serverErrorMessage").style.display = "none";
         document.getElementById("errorMessage").style.display = "none";
-        if (symbol.length < 1 || symbol.length > 5) {
+        if (symbol.length < 1 || symbol.length > 5 || !/^[A-Za-z]+$/.test(symbol)) {
             document.getElementById("errorMessage").style.display = "block";
             return true;
         }
@@ -183,7 +183,7 @@ function App() {
                             }]}
                         yAxis={[
                             {
-                                label: "Volume of Purchase in Millions (M)",
+                                label: "Volume of Purchase",
                                 valueFormatter: (value) => volumeFormatter.format(value),
                             }
                         ]}

@@ -136,3 +136,28 @@ The generated classes as-is. By being specific upfront about which fields I need
 the output was already scoped correctly and mapped cleanly to what the StockData
 expected — no unnecessary properties and no renaming required. I only added in the Required 
 DataAnnotation for the fields to ensure those were properly documented.
+---
+## 6. Generating the README
+
+**Prompt sent:**
+> Generate a README for my project with the following details:
+> - Frontend runs at localhost:64085, backend/Swagger at http://localhost:5046/swagger/index.html
+> - Run by cloning the repo, cd into StockDataApp.Server, and running dotnet run
+> - Tech stack: React, MUI X Charts, Material UI, Day.js on the frontend;
+>   ASP.NET Core 8, C#, Swagger on the backend; Yahoo Finance API as the data source
+> - Features: stock symbol search, 1 month of historical data, price and volume
+>   line charts, data table, error handling
+
+**Why I chose this prompt:**
+A clear README is a deliverable requirement. By providing the exact URLs, run command,
+tech stack, and feature list upfront, I could get a well-structured output without
+back-and-forth and then review it for accuracy rather than writing boilerplate from scratch.
+
+**What the AI returned:**
+A complete README with sections for overview, features, tech stack, prerequisites,
+setup instructions, application URLs, usage steps, and project structure.
+
+**What I reviewed and kept:**
+Read through the full output and verified all URLs, commands, and tech stack entries
+were accurate before submitting. The structure and wording were clean and required
+no changes.

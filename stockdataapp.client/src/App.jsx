@@ -1,25 +1,45 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { LineChart } from '@mui/x-charts/LineChart';
+import  dayjs  from 'dayjs';
 
 function App() {
     const [stockData, setStockData] = useState();
     const [symbol, setSymbol] = useState("TSLA");
-    const [monthHigh, setMonthHigh] = useState([]);
-    const [days, setDays] = useState([]);
+    const [yAxisLabel, setYAxisLabel] = useState("Price of Day");
+    const high =
+        stockData?.data.map(d => d.high) ?? [];
+    const low = 
+        stockData?.data.map(d => d.low) ?? [];
+    const open = 
+        stockData?.data.map(d => d.open) ?? [];
+    const close =
+        stockData?.data.map(d => d.close) ?? [];
+    const volume =
+        stockData?.data.map(d => d.volume) ?? [];
+
+    const xAxisData =
+        stockData?.data.map(d => new Date(d.date)) ?? [];
 
     useEffect(() => {
         populateStockData();
-        createLineChart();
+        //createLineChart();
     }, []);
 
+    function collapseTable() {
+        document.getElementById("datatable").style.display = document.getElementById("datatable").style.display == "none" ? "block": "none";
+    }
+
     const dataContents = stockData === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
+        ? <p><em>Loading... Please refresh once the ASP.NET backend has started.</em></p>
         : 
                 
         <div key={stockData.symbol}>
-            <h3>{stockData.symbol}</h3>
-                    <table className="table table-striped" aria-labelledby="tableLabel">
+            <div>
+                <h3>{stockData.symbol}</h3>
+                <button onClick={collapseTable}>Collapse</button>
+            </div>
+                    <table className="table table-striped" aria-labelledby="tableLabel" id="datatable" display="none">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -48,11 +68,16 @@ function App() {
 
     return (
         <div>
-            <h1 id="tableLabel">Weather forecast</h1>
+            <h1 id="tableLabel">Stock Data Tracker</h1>
             <text
                 id="errorMessage"
                 display="none">
                 Error: Invalid stock code
+            </text>
+            <text
+                id="serverErrorMessage"
+                display="none">
+                Error: There was an issue fetching data. Please try again in a few minutes.
             </text>
             <input name="stockCodeInput"
                 placeholder="Input 1-5 length stock"
@@ -60,21 +85,50 @@ function App() {
                 maxLength={5}
                 onChange={(e) => setSymbol(e.target.value.toUpperCase())}
             />
-            <button onClick={updateData}>
+            <button id="submit" onClick={populateStockData}>
                 Search
             </button>
-            <p>This component demonstrates fetching data from the server.</p>
-            <br />
+            
             {dataContents}
-            <div id="lineGraph" display="none">
+            {stockData &&
                 <LineChart
-                    series={[{ data: monthHigh }]}
-                    xAxis={[{ data: days, dataKey: 'date' }]}
-                    width={800}
+                series={[
+                    { label: "Open Price of Day", data: open }, 
+                    { label: "High Price of Day", data: high },
+                    { label: "Low Price of Day", data: low },
+                    { label: "Close Price of Day", data: close },
+                ]}
+                    xAxis={[
+                        {
+                            label: "Date",
+                            data: xAxisData,
+                            scaleType: "time",
+                            valueFormatter: (date) => dayjs(date).format("MMMD"),
+                        }]}
+                    yAxis={[{ label: yAxisLabel }]}
+                    width={900}
                     height={400}
 
                 />
-            </div>
+            }
+            {stockData &&
+                <LineChart
+                    series={[
+                        { label: "Volume", data: volume },
+                    ]}
+                    xAxis={[
+                        {
+                            label: "Date",
+                            data: xAxisData,
+                            scaleType: "time",
+                            valueFormatter: (date) => dayjs(date).format("MMMD"),
+                        }]}
+                    yAxis={[{ label: "Volume of Purchase" }]}
+                    width={900}
+                    height={400}
+
+                />
+            }
         </div>
     );
     
@@ -86,10 +140,16 @@ function App() {
             );
 
             if (response.status == 500) {
+                document.getElementById("serverErrorMessage").style.display = "block";
+                return;
+            } else {
+                document.getElementById("serverErrorMessage").style.display = "none"; 
+            }
+            if (response.status == 400) {
                 document.getElementById("errorMessage").style.display = "block";
                 return;
             } else {
-                document.getElementById("errorMessage").style.display = "none"; 
+                document.getElementById("errorMessage").style.display = "none";
             }
             if (!response.ok) {
                 console.error(response.status);
@@ -104,22 +164,7 @@ function App() {
             console.error(err);
         }
     }
-    async function createLineChart() {
-        setMonthHigh([]);
-        setDays([]);
-        setMonthHigh(stockData.data.map(data => data.high));
-        setDays(stockData.data.map(data => new Date(data.date).getDate()));
-        document.getElementById("lineGraph").style.display = "block";
-    }
 
-    async function updateData() {
-        await populateStockData();
-        await createLineChart();
-        console.log("Month high");
-        console.log(monthHigh);
-        console.log("days:");
-        console.log(days);
-    }
 }
 
 export default App;

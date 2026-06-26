@@ -13,6 +13,7 @@
     <PackageJsonDependenciesEmotionStyled Condition="$(PackageJsonDependenciesEmotionStyled) == ''">^11.14.1</PackageJsonDependenciesEmotionStyled>
     <PackageJsonDependenciesMuiMaterial Condition="$(PackageJsonDependenciesMuiMaterial) == ''">^9.1.2</PackageJsonDependenciesMuiMaterial>
     <PackageJsonDependenciesMuiXCharts Condition="$(PackageJsonDependenciesMuiXCharts) == ''">^9.7.0</PackageJsonDependenciesMuiXCharts>
+    <PackageJsonDependenciesDayjs Condition="$(PackageJsonDependenciesDayjs) == ''">^1.11.21</PackageJsonDependenciesDayjs>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^19.2.7</PackageJsonDependenciesReact>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^19.2.7</PackageJsonDependenciesReactDom>
     <PackageJsonDevdependenciesTypesReact Condition="$(PackageJsonDevdependenciesTypesReact) == ''">^19.2.17</PackageJsonDevdependenciesTypesReact>

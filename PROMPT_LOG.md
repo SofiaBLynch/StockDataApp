@@ -136,6 +136,7 @@ The generated classes as-is. By being specific upfront about which fields I need
 the output was already scoped correctly and mapped cleanly to what the StockData
 expected — no unnecessary properties and no renaming required. I only added in the Required 
 DataAnnotation for the fields to ensure those were properly documented.
+
 ---
 ## 6. Generating the README
 

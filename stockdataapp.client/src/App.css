@@ -4,8 +4,67 @@
     padding: 2rem;
     text-align: center;
 }
+.row-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 
 th, td {
     padding-left: 1rem;
     padding-right: 1rem;
+    font-size: 17px;
 }
+
+input {
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 15px;
+}
+
+button {
+    background-color: #f2f2f1;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 15px;
+}
+
+button:hover{
+    background-color: #d7d7d7;
+}
+
+button:active {
+    background-color: #858585;
+}
+
+.error-message {
+    color: red;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    width: 15px;
+    height: 15px;
+}
+
+.icon-button:hover {
+    width: 15px;
+    height: 15px;
+    background-color: rgba(0, 0, 0, 0.05); /* Soft hover circle */
+}
+
+.button-icon {
+    font-size: 20px;
+    color: #39b863;
+}
+

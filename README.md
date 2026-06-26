@@ -35,7 +35,8 @@ The application allows users to search for a stock ticker and view tables with t
 
 Make sure you have the following installed:
 - .NET 8 SDK
-- Node.js (LTS recommended)
+- Node.js
+- Vite v8.1.0
 
 ### Running the Application
 
